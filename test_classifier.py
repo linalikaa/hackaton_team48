@@ -34,6 +34,25 @@ def test_incident_uppercase():
     assert get_category("СИСТЕМА НЕ РАБОТАЕТ") == "Сообщения о внештатных ситуациях"
 
 
+def test_incident_word_notebook():
+    assert get_category("ноутбук неисправен") == "Вопросы по поводу оборудования"
+def test_incident_word_mouse():
+    assert get_category("не работает мышь") == "Вопросы по поводу оборудования"
+def test_incident_word_headset():
+    assert get_category("гарнитура вышла из строя") == "Вопросы по поводу оборудования"
+def test_incident_word_printer():
+    assert get_category("принтер не работает") == "Вопросы по поводу оборудования"
+def test_incident_word_scanner():
+    assert get_category("сканер плохо работает") == "Вопросы по поводу оборудования"
+def test_equipment_uppercase():
+    assert get_category("ПРИНТЕР НЕ РАБОТАЕТ") == "Вопросы по поводу оборудования"
+
+
+
+
+
+
+
 
 
 
