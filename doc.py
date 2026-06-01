@@ -1,4 +1,5 @@
 from classifier import EmailClassifier
+from reportHTML.report_html import ReportHTML
 import os
 import sys
 import shutil
@@ -22,6 +23,7 @@ total_stats = {
     "Спам": 0,
     "Кадровые вопросы": 0,
     "Информационные сообщения": 0,
+    "Черновик": 0,
     "Прочее": 0
 }
 
@@ -43,11 +45,11 @@ for filename in files:
         os.makedirs(category_folder, exist_ok=True)
         shutil.copy2(file_path, os.path.join(category_folder, filename))
 
-        print("Название письма:", filename)
-        print("Категория:", category)
-        print("<3" * 50)
+        print(f"Название письма:'{filename}' и его категория: '{category}'")
 
 print("Статистика:")
 for category, count in total_stats.items():
     print(f"{category}: {count}")
 print("Всего обработано писем:", sum(total_stats.values()))
+
+reporter = ReportHTML(total_stats, RESULTS_FOLDER)
