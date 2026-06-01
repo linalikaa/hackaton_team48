@@ -41,16 +41,24 @@ class EmailClassifier:
         }
 
     def is_draft(self):
-        if "от кого:" not in self.original_text.lower():
-            if "from:" not in self.original_text.lower():
-                return True
+        text_lower = self.original_text.lower()
+        has_sender = "от кого:" in text_lower or "from:" in text_lower
+        has_recipient = "кому:" in text_lower or "to:" in text_lower
+        if not has_sender or not has_recipient:
+            return True
         return False
 
     def classify(self):
+        for word in self.categories["Спам"]:
+            if word in self.text:
+                return "Спам"
+
         if self.is_draft():
             return "Черновик"
 
         for category, words in self.categories.items():
+            if category == "Спам":
+                continue
             for word in words:
                 if word in self.text:
                     return category
