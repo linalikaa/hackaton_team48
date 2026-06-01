@@ -53,3 +53,4 @@ for category, count in total_stats.items():
 print("Всего обработано писем:", sum(total_stats.values()))
 
 reporter = ReportHTML(total_stats, RESULTS_FOLDER)
+reporter.generate()
