@@ -165,8 +165,6 @@ def test_not_draft_with_english_headers():
         ""
     )
     assert classifier.classify() != "Черновик"
-
-
 def test_draft_with_only_from_header():
     classifier = EmailClassifier(
         "From: tpbbi2505@test.com\n"
