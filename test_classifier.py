@@ -142,6 +142,38 @@ def test_result_is_string():
 def test_result_is_not_empty_string():
     assert get_category("любой текст") != ""
 
+
+def test_draft_without_sender():
+    classifier = EmailClassifier(
+        "Кому: besttest@gmail.com\nПочему 48 команда?"
+    )
+    assert classifier.classify() == "Черновик"
+def test_draft_without_sender_and_recipient():
+    classifier = EmailClassifier("Синабоны")
+    assert classifier.classify() == "Черновик"
+def test_not_draft_with_sender_and_recipient():
+    classifier = EmailClassifier(
+        "От кого: annapogrebnaya@hse.ru\n"
+        "Кому: team48@yandex.ru\n"
+        "Нужно восстановить пароль"
+    )
+    assert classifier.classify() != "Черновик"
+def test_not_draft_with_english_headers():
+    classifier = EmailClassifier(
+        "From: nevseev@hse.ru\n"
+        "To: ysanochkin@hse.ru\n"
+        ""
+    )
+    assert classifier.classify() != "Черновик"
+
+
+def test_draft_with_only_from_header():
+    classifier = EmailClassifier(
+        "From: tpbbi2505@test.com\n"
+        "Любим ТП"
+    )
+    assert classifier.classify() == "Черновик"
+
 emails = [
     (
         "Доброе утро! Нужно выдать стажеру права на чтение к базе данных",
