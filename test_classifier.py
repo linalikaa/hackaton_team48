@@ -180,7 +180,7 @@ emails = [
         "Прочее"
     ),
 ]
-@pytest.mark.parametrize("text, expected", realistic_emails)
+@pytest.mark.parametrize("text, expected", emails)
 def test_realistic_email(text, expected):
     assert get_category(text) ==expected
 
